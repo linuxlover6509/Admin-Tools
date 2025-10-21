@@ -6,7 +6,7 @@ A lightweight bash script that displays CPU temperature in a beautifully formatt
 Usage
 
 Make the script executable
-    chmod +x cpu_temp.sh
+    chmod +x hardwareTemp.sh
 
 Run the script
-    ./cpu_temp.sh
+    ./hardwareTemp.sh
