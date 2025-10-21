@@ -1,4 +1,4 @@
-##CPU Temperature Monitor
+# CPU Temperature Monitor
 
 A lightweight bash script that displays CPU temperature in a beautifully formatted output without requiring any third-party utilities.
 
