@@ -4,7 +4,6 @@ LEN=$1
 AMOUNT=$2
 
 usage(){
-	echo ""
 	echo "Usage: ./passGen.sh number of characters amd amount of password."
 	echo "Example: ./passGen.sh 14 4"
 }
@@ -14,10 +13,8 @@ passGen(){
 }
 
 
-if [[ $LEN -lt 8 ]]; then
-	usage 
-	exit 0
-fi
+[[ $LEN -lt 8 ]] && { usage; exit; }
+
 
 while [[ $i -lt $AMOUNT ]]; do
 	i=$(($i+1))
