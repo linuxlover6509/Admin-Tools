@@ -8,5 +8,8 @@ Usage
 Make the script executable
     chmod +x hardwareTemp.sh
 
+Run
+sudo modprobe drivetemp
+
 Run the script
     ./hardwareTemp.sh
