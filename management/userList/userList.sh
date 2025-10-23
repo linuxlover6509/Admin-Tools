@@ -23,7 +23,7 @@ lsUser(){
 	esac
 }
 
-lsInfo(){
+usage(){
 	echo "----------------------------------------------"
 	echo "Users: $(lsUser userTotal)"
 	echo "----------------------------------------------"
@@ -54,5 +54,13 @@ lsInactive(){
 }
 
 
-[[ $REMOVAL == "-rm" ]] || { lsInfo; exit; }
+[[ $REMOVAL == "-rm" ]] || { usage; exit; }
+
+echo -e "\nHow many days has the user been inactive?"
+read days
+echo "----------------------------------------------"
+echo "Inactive total: $(lsInactive | wc -w)"
+echo "----------------------------------------------"
+echo -e "Inactive users:\n$(lsInactive)"
+echo "----------------------------------------------"
 
