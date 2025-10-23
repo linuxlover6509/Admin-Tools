@@ -1,5 +1,6 @@
 #!/bin/env bash
 
+REMOVAL=$1
 
 lsUser(){
 	local=$1
@@ -22,10 +23,23 @@ lsUser(){
 	esac
 }
 
+lsInfo(){
+	echo "----------------------------------------------"
+	echo "Users: $(lsUser userTotal)"
+	echo "----------------------------------------------"
+	echo -e "Sudo users: $(lsUser sudoTotal)\n"
+	echo "$(lsUser sudoUsers | tr "," "\n")"
+	echo "----------------------------------------------"
+	echo -e "Hint: if you wanted to block or remove incative users just use -rm arg.\n"
+	echo "Example: ./userList -rm"
+	echo "----------------------------------------------"
 
-echo "----------------------------------------------"
-echo "Users: $(lsUser userTotal)"
-echo "----------------------------------------------"
-echo -e "Sudo users: $(lsUser sudoTotal)\n"
-echo "$(lsUser sudoUsers)"
-echo "----------------------------------------------"
+	exit
+}
+
+
+
+
+[[ $REMOVAL == "-rm" ]] || lsInfo
+
+
