@@ -33,19 +33,19 @@ lsInfo(){
 	echo -e "Hint: if you wanted to block or remove incative users just use -rm arg.\n"
 	echo "Example: ./userList -rm"
 	echo "----------------------------------------------"
-
-	exit
 }
 
 lsInactive(){
 
 	local days=$1
+	local date=$(date -d "$days days ago" +%Y-%m-%d)
 
+	last -s "$date"
 
 
 }
 
 
-[[ $REMOVAL == "-rm" ]] || lsInfo
+[[ $REMOVAL == "-rm" ]] || { lsInfo; exit; }
 
-
+lsInactive 15
