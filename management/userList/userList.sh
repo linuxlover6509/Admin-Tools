@@ -56,5 +56,3 @@ lsInactive(){
 
 [[ $REMOVAL == "-rm" ]] || { lsInfo; exit; }
 
-lsInactive 1
-
