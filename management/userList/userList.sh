@@ -30,7 +30,7 @@ lsInfo(){
 	echo -e "Sudo users: $(lsUser sudoTotal)\n"
 	echo "$(lsUser sudoUsers | tr "," "\n")"
 	echo "----------------------------------------------"
-	echo -e "Hint: if you wanted to block or remove incative users just use -rm arg.\n"
+	echo -e "Hint: if you wanted to block or remove inative users just use -rm arg.\n"
 	echo "Example: ./userList -rm"
 	echo "----------------------------------------------"
 }
@@ -39,13 +39,22 @@ lsInactive(){
 
 	local days=$1
 	local date=$(date -d "$days days ago" +%Y-%m-%d)
+	local tmpAll=$(mktemp /tmp/all.XXXXXX)
+	local tmpActive=$(mktemp /tmp/active.XXXXXX)
 
-	last -s "$date"
+	last -s "$date" 2>/dev/null | \
+		awk '$1 != "wtmpdb" && $1 != "" && $1 != "reboot" {print $1}' | sort -u > $tmpActive
 
+	getent passwd | awk -F: '$3 >= 1000 && $1 != "nobody" {print $1}' > $tmpAll
+	
+	comm -23 $tmpAll $tmpActive
+
+	rm -f $tmpAll $tmpActive	
 
 }
 
 
 [[ $REMOVAL == "-rm" ]] || { lsInfo; exit; }
 
-lsInactive 15
+lsInactive 1
+
