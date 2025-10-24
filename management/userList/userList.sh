@@ -38,15 +38,18 @@ usage(){
 lsInactive(){
 
 	local days=$1
-	local date=$(date -d "$days days ago" +%Y-%m-%d)
+	#local date=$(date -d "$days days ago" +%Y-%m-%d)
 	local tmpAll=$(mktemp /tmp/all.XXXXXX)
 	local tmpActive=$(mktemp /tmp/active.XXXXXX)
+	local date="2025-10-24"
+
 
 	last -s "$date" 2>/dev/null | \
-		awk '$1 != "wtmpdb" && $1 != "" && $1 != "reboot" {print $1}' | sort -u > $tmpActive
+		awk '$1 != "reboot" && $1 != " " && $1 != "wtmpdb" {print $1}' | sort -u > $tmpActive
 
 	getent passwd | awk -F: '$3 >= 1000 && $1 != "nobody" {print $1}' > $tmpAll
-	
+		
+
 	comm -23 $tmpAll $tmpActive
 
 	rm -f $tmpAll $tmpActive	
@@ -54,13 +57,34 @@ lsInactive(){
 }
 
 
+delUsr(){
+
+	echo "amogus"	
+
+}
+
+
+
 [[ $REMOVAL == "-rm" ]] || { usage; exit; }
 
-echo -e "\nHow many days has the user been inactive?"
-read days
-echo "----------------------------------------------"
-echo "Inactive total: $(lsInactive | wc -w)"
-echo "----------------------------------------------"
-echo -e "Inactive users:\n$(lsInactive)"
-echo "----------------------------------------------"
 
+echo -e "\nHow many days has the user been inactive?"
+
+until [[ $days =~ ^[1-9][0-9]?[0-9]?$ ]] && [[ $days -le 365 ]]; do
+	read -rp "Day choise [1-365]: " days
+done
+
+echo "----------------------------------------------"
+echo "Inactive total: $(lsInactive $days | wc -w)"
+echo "----------------------------------------------"
+echo -e "Inactive users:\n\n$(lsInactive $days) "
+echo "----------------------------------------------"
+echo -e "Do you want to delete or block these users?\n"
+echo "1) Delete users"
+echo "2) Block users"
+
+until [[ $action_choise =~ ^[1-2]$ ]]; do
+	read -rp "Action choise [1-2]: " action_choise
+done
+
+[[ $action_choise == "1" ]] && delUsr || echo "block"
