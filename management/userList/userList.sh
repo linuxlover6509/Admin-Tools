@@ -98,7 +98,7 @@ delUsr(){
 
 		[[ -d $backDir ]] || mkdir -pv $backDir
 					
-		for usr in $(lsInactive); do
+		for usr in $(lsInactive $days); do
 			uniq=$(tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 6)
 			backName="backup_${usr}_${uniq}.tar.gz"
 			usrDir=/home/$usr/
