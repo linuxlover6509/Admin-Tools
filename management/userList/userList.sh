@@ -126,6 +126,18 @@ delUsr(){
 	fi
 }
 
+blockUsr(){
+	
+	echo "Disallowing a user from logging in from any source"
+
+	for usr in $(lsInactive $days); do
+		echo -e "\n$usr has been blocked"
+		usermod --expiredate 1 $usr
+	done
+
+	echo "Complete"
+
+}
 
 
 [[ $REMOVAL == "-rm" ]] && [[ $UID == "0" ]] || { usage; exit; }
@@ -149,5 +161,5 @@ until [[ $action_choise =~ ^[1-2]$ ]]; do
 	read -rp "Action choise [1-2]: " action_choise
 done
 
-[[ $action_choise == "1" ]] && delUsr || echo "block"
+[[ $action_choise == "1" ]] && delUsr || blockUsr
 
