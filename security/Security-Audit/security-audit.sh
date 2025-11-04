@@ -26,9 +26,6 @@ getSSH(){
 	local condition_met=1
 
 
-
-
-
 	if [[ $rootLogin == "prohibit-password" ]];then
 		echo "Critical: PermitRootLogin = prohibit-password"
 		condition_met=0
@@ -53,9 +50,6 @@ getSSH(){
 	if [[ $condition_met == "1" ]];then
 		echo "No warnings"
 	fi
-
-	
-
 }
 
 
