@@ -4,7 +4,7 @@ LEN=$1
 AMOUNT=$2
 
 usage(){
-	echo "Usage: ./passGen.sh number of characters amd amount of password."
+	echo "Usage: ./passGen.sh number of characters and amount of password."
 	echo "Example: ./passGen.sh 14 4"
 }
 
