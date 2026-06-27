@@ -1,0 +1,20 @@
+*filter
+
+# default policies
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+
+# allow loopback
+-A INPUT -i lo -j ACCEPT
+
+# allow established connections
+-A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# allow SSH
+-A INPUT -p tcp --dport 22 -j ACCEPT
+
+# allow HTTPS
+-A INPUT -p tcp --dport 443 -j ACCEPT
+
+COMMIT

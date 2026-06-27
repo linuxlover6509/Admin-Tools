@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: true
+
+  roles:
+    - apt
+    - ssh
+    - timezone
+    - fail2ban
+    - iptables

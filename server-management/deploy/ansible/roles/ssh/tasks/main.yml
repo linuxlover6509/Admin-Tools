@@ -1,0 +1,17 @@
+#SPDX-License-Identifier: MIT-0
+# tasks file for ssh
+---
+- name: Install openssh-server
+  ansible.builtin.apt:
+    name: openssh-server
+    state: present
+    update_cache: true
+
+- name: Deploy sshd config
+  ansible.builtin.template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart ssh

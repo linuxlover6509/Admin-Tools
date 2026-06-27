@@ -1,0 +1,15 @@
+---
+- name: Install iptables-persistent
+  ansible.builtin.apt:
+    name: iptables-persistent
+    state: present
+    update_cache: true
+
+- name: Deploy iptables rules
+  ansible.builtin.template:
+    src: rules.v4.j2
+    dest: /etc/iptables/rules.v4
+    mode: "0644"
+
+- name: Apply iptables rules immediately
+  ansible.builtin.command: netfilter-persistent reload
