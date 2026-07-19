@@ -9,7 +9,7 @@ usage(){
 }
 
 passGen(){
-	(tr -dc 'A-Za-z0-9!?%=' < /dev/urandom | head -c $LEN)
+	(tr -dc 'A-Za-z0-9!?%=' < /dev/urandom | head -c "$LEN")
 }
 
 
@@ -17,6 +17,6 @@ passGen(){
 
 
 while [[ $i -lt $AMOUNT ]]; do
-	i=$(($i+1))
+	i=$((i + 1))
 	echo "$i: $(passGen)"
 done
